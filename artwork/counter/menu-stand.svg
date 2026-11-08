@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="220" height="250" viewBox="0 0 220 250">
+  <defs>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e5b36d"/><stop offset=".55" stop-color="#b87a40"/><stop offset="1" stop-color="#87532f"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffdf3"/><stop offset="1" stop-color="#ead9b9"/></linearGradient>
+    <filter id="wc" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".045" numOctaves="2" seed="9" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale=".65"/></filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <ellipse cx="110" cy="231" rx="76" ry="10" fill="#65472f" opacity=".14" filter="url(#blur)"/>
+  <g filter="url(#wc)" stroke="#71462d" stroke-width="4" stroke-linejoin="round">
+    <!-- Front-facing symmetrical A-frame -->
+    <path d="M83 145 H137 L157 220 H63Z" fill="#8a5732"/>
+    <rect x="50" y="25" width="120" height="153" rx="12" fill="url(#wood)"/>
+    <rect x="62" y="38" width="96" height="125" rx="4" fill="url(#paper)" stroke="#a78258" stroke-width="3"/>
+    <path d="M70 47 H150" stroke="#fffdf4" stroke-width="3" opacity=".75"/>
+    <rect x="40" y="174" width="140" height="50" rx="7" fill="url(#wood)"/>
+    <path d="M51 188 H169" stroke="#e3b67c" stroke-width="3" opacity=".55"/>
+    <rect x="78" y="203" width="64" height="7" rx="3.5" fill="#74482d" opacity=".5" stroke="none"/>
+    <circle cx="110" cy="29" r="6" fill="#e9c98f" stroke="#76503a" stroke-width="2"/>
+    <!-- Blank card: no text, no skew, no rotation. -->
+  </g>
+</svg>

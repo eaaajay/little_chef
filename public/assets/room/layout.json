@@ -1,0 +1,463 @@
+{
+  "furniture": [
+    {
+      "name": "baseboard_0",
+      "x": 0.0,
+      "y": 265.0,
+      "width": 200.0,
+      "height": 55.0,
+      "sprite": "baseboard.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "baseboard_1",
+      "x": 200.0,
+      "y": 265.0,
+      "width": 200.0,
+      "height": 55.0,
+      "sprite": "baseboard.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "baseboard_2",
+      "x": 400.0,
+      "y": 265.0,
+      "width": 200.0,
+      "height": 55.0,
+      "sprite": "baseboard.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "baseboard_3",
+      "x": 600.0,
+      "y": 265.0,
+      "width": 200.0,
+      "height": 55.0,
+      "sprite": "baseboard.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "baseboard_4",
+      "x": 800.0,
+      "y": 265.0,
+      "width": 200.0,
+      "height": 55.0,
+      "sprite": "baseboard.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "baseboard_5",
+      "x": 1000.0,
+      "y": 265.0,
+      "width": 200.0,
+      "height": 55.0,
+      "sprite": "baseboard.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "window_left",
+      "x": 10.0,
+      "y": 30.0,
+      "width": 160.0,
+      "height": 220.0,
+      "sprite": "window.webp",
+      "depth": 250.0
+    },
+    {
+      "name": "window_right",
+      "x": 1030.0,
+      "y": 30.0,
+      "width": 160.0,
+      "height": 220.0,
+      "sprite": "window.webp",
+      "depth": 250.0
+    },
+    {
+      "name": "fridge",
+      "x": 140.0,
+      "y": 50.0,
+      "width": 180.0,
+      "height": 270.0,
+      "sprite": "fridge.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "kitchen_workstation",
+      "x": 340.0,
+      "y": 70.0,
+      "width": 700.0,
+      "height": 250.0,
+      "sprite": "kitchen_workstation_clean.webp",
+      "depth": 320.0
+    },
+    {
+      "name": "counter_full",
+      "x": 0.0,
+      "y": 370.0,
+      "width": 1200.0,
+      "height": 130.0,
+      "sprite": "counter_full.webp",
+      "depth": 500.0
+    },
+    {
+      "name": "pos_register",
+      "x": 940.0,
+      "y": 310.0,
+      "width": 108.0,
+      "height": 90.0,
+      "sprite": "pos_register.webp",
+      "depth": 510.0
+    },
+    {
+      "name": "table_0",
+      "x": 160.0,
+      "y": 515.0,
+      "width": 220.0,
+      "height": 150.0,
+      "sprite": "table.webp",
+      "depth": 665.0
+    },
+    {
+      "name": "table_1",
+      "x": 820.0,
+      "y": 515.0,
+      "width": 220.0,
+      "height": 150.0,
+      "sprite": "table.webp",
+      "depth": 665.0
+    },
+    {
+      "name": "table_2",
+      "x": 95.0,
+      "y": 703.0,
+      "width": 220.0,
+      "height": 150.0,
+      "sprite": "table.webp",
+      "depth": 853.0
+    },
+    {
+      "name": "table_3",
+      "x": 885.0,
+      "y": 703.0,
+      "width": 220.0,
+      "height": 150.0,
+      "sprite": "table.webp",
+      "depth": 853.0
+    },
+    {
+      "name": "entrance",
+      "x": 380.0,
+      "y": 570.0,
+      "width": 440.0,
+      "height": 330.0,
+      "sprite": "entrance.webp",
+      "depth": 900.0
+    },
+    {
+      "name": "fence_left",
+      "x": 0.0,
+      "y": 835.0,
+      "width": 380.0,
+      "height": 65.0,
+      "sprite": "front_fence.webp",
+      "depth": 900.0
+    },
+    {
+      "name": "fence_right",
+      "x": 820.0,
+      "y": 835.0,
+      "width": 380.0,
+      "height": 65.0,
+      "sprite": "front_fence.webp",
+      "depth": 900.0
+    },
+    {
+      "name": "cutting_board",
+      "x": 400.0,
+      "y": 148.0,
+      "width": 190.0,
+      "height": 42.0,
+      "sprite": "cutting_board_clean.webp",
+      "depth": 322.0
+    },
+    {
+      "name": "knife_rack",
+      "x": 395.0,
+      "y": 18.0,
+      "width": 210.0,
+      "height": 140.0,
+      "sprite": "knife_rack_empty.webp",
+      "depth": 321.0
+    }
+  ],
+  "collision": [
+    {
+      "name": "fridge",
+      "x": 150.0,
+      "y": 260.0,
+      "width": 160.0,
+      "height": 60.0
+    },
+    {
+      "name": "kitchen_workstation",
+      "x": 350.0,
+      "y": 280.0,
+      "width": 680.0,
+      "height": 40.0
+    },
+    {
+      "name": "counter",
+      "x": 0.0,
+      "y": 370.0,
+      "width": 1200.0,
+      "height": 130.0
+    },
+    {
+      "name": "table_0",
+      "x": 178.0,
+      "y": 546.0,
+      "width": 184.0,
+      "height": 114.0
+    },
+    {
+      "name": "table_1",
+      "x": 838.0,
+      "y": 546.0,
+      "width": 184.0,
+      "height": 114.0
+    },
+    {
+      "name": "table_2",
+      "x": 113.0,
+      "y": 734.0,
+      "width": 184.0,
+      "height": 114.0
+    },
+    {
+      "name": "table_3",
+      "x": 903.0,
+      "y": 734.0,
+      "width": 184.0,
+      "height": 114.0
+    },
+    {
+      "name": "wall_top",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 1200.0,
+      "height": 35.0
+    },
+    {
+      "name": "wall_left",
+      "x": 0.0,
+      "y": 0.0,
+      "width": 35.0,
+      "height": 900.0
+    },
+    {
+      "name": "wall_right",
+      "x": 1165.0,
+      "y": 0.0,
+      "width": 35.0,
+      "height": 900.0
+    }
+  ],
+  "anchors": [
+    {
+      "name": "chef_home",
+      "x": 600.0,
+      "y": 480.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "door",
+      "x": 600.0,
+      "y": 850.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "ordering",
+      "x": 480.0,
+      "y": 590.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "station_fridge",
+      "x": 220.0,
+      "y": 215.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "station_cuttingBoard",
+      "x": 500.0,
+      "y": 175.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "station_stove",
+      "x": 710.0,
+      "y": 230.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "station_oven",
+      "x": 930.0,
+      "y": 235.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "station_counter",
+      "x": 790.0,
+      "y": 410.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "station_register",
+      "x": 990.0,
+      "y": 395.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "chef_register",
+      "x": 950.0,
+      "y": 480.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "chef_fridge",
+      "x": 335.0,
+      "y": 330.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "chef_cuttingBoard",
+      "x": 465.0,
+      "y": 330.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "chef_stove",
+      "x": 710.0,
+      "y": 330.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "chef_oven",
+      "x": 930.0,
+      "y": 330.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "chef_counter",
+      "x": 720.0,
+      "y": 480.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "table_0",
+      "x": 270.0,
+      "y": 600.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "table_1",
+      "x": 930.0,
+      "y": 600.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "table_2",
+      "x": 205.0,
+      "y": 775.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "table_3",
+      "x": 995.0,
+      "y": 775.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "guest_0",
+      "x": 395.0,
+      "y": 630.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "guest_1",
+      "x": 805.0,
+      "y": 630.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "guest_2",
+      "x": 360.0,
+      "y": 815.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "guest_3",
+      "x": 840.0,
+      "y": 815.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "serve_0",
+      "x": 435.0,
+      "y": 650.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "serve_1",
+      "x": 765.0,
+      "y": 650.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "serve_2",
+      "x": 435.0,
+      "y": 840.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "serve_3",
+      "x": 765.0,
+      "y": 840.0,
+      "width": 0.0,
+      "height": 0.0
+    },
+    {
+      "name": "station_knifeRack",
+      "x": 500.0,
+      "y": 82.0,
+      "width": 0.0,
+      "height": 0.0
+    }
+  ]
+}

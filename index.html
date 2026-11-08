@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="theme-color" content="#f7eddc" />
+    <meta name="description" content="小厨师餐厅：听英语点餐、取食材、做菜、上菜，收集 12 个英语单词。" />
+    <link rel="icon" type="image/webp" href="/assets/ui/restaurant-icon.webp" />
+    <link rel="apple-touch-icon" href="/assets/ui/restaurant-icon.webp" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>小厨师餐厅 · Little Chef</title>
+  </head>
+  <body>
+    <main id="game-shell" aria-label="小厨师餐厅游戏">
+      <div id="game-canvas"></div>
+
+      <section id="loading-screen" class="screen-layer loading-screen">
+        <div class="loading-logo">👨🏻‍🍳</div>
+        <p>正在准备小餐厅…</p>
+        <div class="loading-track"><span id="loading-progress"></span></div>
+      </section>
+
+      <section id="welcome-screen" class="screen-layer welcome-screen is-hidden" aria-labelledby="game-title">
+        <div class="welcome-card paper-card">
+          <div class="eyebrow">KIDSBOX PRESENTS</div>
+          <div class="welcome-dishes" aria-hidden="true">
+            <img src="/assets/dishes/tomato_egg_noodles_food.webp" alt="" />
+            <img class="welcome-dish-main" src="/assets/dishes/pizza_food.webp" alt="" />
+            <img src="/assets/dishes/fruit_salad_food.webp" alt="" />
+          </div>
+          <h1 id="game-title">小厨师餐厅</h1>
+          <p class="english-title">LITTLE CHEF'S RESTAURANT</p>
+          <p class="welcome-copy">听订单、找食材、做美味。<br />今天，餐厅就交给你啦！</p>
+          <button id="start-button" class="primary-button" data-testid="start-game" disabled>
+            <span>开门营业</span><span aria-hidden="true">→</span>
+          </button>
+          <div class="welcome-features">
+            <span>3 道菜谱</span><i></i><span>12 个英语单词</span><i></i><span>本地保存</span>
+          </div>
+        </div>
+      </section>
+
+      <div id="hud" class="hud is-hidden">
+        <header class="top-bar">
+          <div class="brand-pill"><span class="brand-dot"></span><span>LITTLE CHEF</span></div>
+          <div id="coin-pill" class="coin-pill" aria-label="金币"><span class="coin-icon">●</span><strong id="coin-count">100</strong></div>
+          <div class="top-actions">
+            <button id="wordbook-button" class="round-button labeled-button" aria-label="打开单词本"><span>ABC</span><small id="word-count">0/12</small></button>
+            <button id="sound-button" class="round-button" aria-label="关闭声音" title="声音">🔊</button>
+            <button id="reset-button" class="round-button" aria-label="重新开始" title="重新开始">↻</button>
+          </div>
+        </header>
+
+        <aside id="order-ticket" class="order-ticket paper-card is-hidden" aria-label="当前订单">
+          <div class="ticket-pin"></div>
+          <div class="ticket-heading"><span>ORDER</span><span id="order-number">#001</span></div>
+          <div class="ticket-dish-row">
+            <img id="ticket-dish-image" alt="" />
+            <div><h2 id="ticket-dish-name"></h2><p id="ticket-dish-chinese"></p></div>
+            <button id="ticket-replay" class="text-button" aria-label="再听一遍订单" title="再听一遍订单">🔊</button>
+          </div>
+          <div id="ticket-ingredients" class="ticket-ingredients"></div>
+          <ol id="ticket-steps" class="ticket-steps"></ol>
+        </aside>
+
+        <section id="task-card" class="task-card paper-card" aria-live="polite">
+          <div id="task-number" class="task-number">1</div>
+          <div class="task-copy"><small>NEXT STEP</small><strong id="task-text" data-testid="current-task">等待客人点餐</strong><span id="task-english">Let's get ready!</span></div>
+          <div class="task-progress"><span id="task-progress-bar"></span></div>
+        </section>
+        <div id="toast" class="toast" role="status"></div>
+        <div id="action-progress" class="action-progress is-hidden"><span id="action-label">Chop, chop!</span><div><i id="action-progress-bar"></i></div></div>
+      </div>
+
+      <section id="order-modal" class="modal-layer is-hidden" data-testid="order-modal" aria-label="客人点餐">
+        <div class="order-dialog paper-card">
+          <div class="dialog-ribbon">NEW ORDER · 新订单</div>
+          <div id="order-customer" class="order-customer"></div>
+          <p id="order-sentence" class="order-sentence"></p>
+          <img id="order-dish-image" class="order-dish-image" alt="菜品图片" />
+          <h2 id="order-dish-name"></h2>
+          <p id="order-dish-chinese" class="dialog-muted"></p>
+          <div id="order-ingredients" class="order-ingredients"></div>
+          <div class="dialog-actions">
+            <button id="order-replay" class="secondary-button">▶ 再听一遍</button>
+            <button id="order-confirm" class="primary-button" data-testid="confirm-order">接单，开始做菜 →</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="fridge-modal" class="modal-layer fridge-layer is-hidden" data-testid="fridge-modal" aria-label="冰箱食材">
+        <div class="fridge-dialog paper-card">
+          <div class="dialog-heading"><div><span class="eyebrow">FRESH INGREDIENTS</span><h2>打开冰箱，取食材</h2></div><button id="fridge-close" class="close-button" aria-label="关上冰箱">×</button></div>
+          <p class="dialog-muted">按订单顺序点选，也可以把食材拖到房间里</p>
+          <div id="fridge-items" class="fridge-items"></div>
+          <div class="fridge-tip"><span>☝</span><span id="fridge-tip-text">先找订单里的第一种食材</span></div>
+        </div>
+      </section>
+
+      <section id="wordbook-modal" class="modal-layer is-hidden" data-testid="wordbook-modal" aria-label="英语单词收集册">
+        <div class="wordbook-dialog paper-card">
+          <div class="dialog-heading"><div><span class="eyebrow">MY LITTLE WORD BOOK</span><h2>我的英语单词本</h2></div><button id="wordbook-close" class="close-button" aria-label="关闭单词本">×</button></div>
+          <p id="wordbook-summary" class="dialog-muted"></p>
+          <div id="word-grid" class="word-grid"></div>
+          <p class="wordbook-tip">做菜时点亮新单词，点卡片可以再听一遍。</p>
+        </div>
+      </section>
+
+      <section id="reset-modal" class="modal-layer is-hidden" aria-label="确认重新开始">
+        <div class="confirm-dialog paper-card">
+          <div class="confirm-icon">↻</div><h2>重新开一家餐厅？</h2>
+          <p>金币会恢复为 100，单词本和当前订单会清空。这个操作不能撤销。</p>
+          <div class="dialog-actions"><button id="reset-cancel" class="secondary-button">继续营业</button><button id="reset-confirm" class="danger-button">确认重新开始</button></div>
+        </div>
+      </section>
+
+      <div id="drag-ghost" class="drag-ghost is-hidden"><img alt="" /></div>
+      <div class="rotate-hint">↻<br /><span>横过屏幕，餐厅会更好玩</span></div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

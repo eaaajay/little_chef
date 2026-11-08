@@ -1,0 +1,13 @@
+{
+  "name": "小厨师餐厅 · Little Chef",
+  "short_name": "小厨师餐厅",
+  "description": "听英语点餐、做菜并收集单词的儿童餐厅小游戏。",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "landscape",
+  "background_color": "#f7eddc",
+  "theme_color": "#e85c43",
+  "icons": [
+    { "src": "/assets/ui/restaurant-icon.webp", "sizes": "512x512", "type": "image/webp" }
+  ]
+}

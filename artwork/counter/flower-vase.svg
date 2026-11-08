@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="260" viewBox="0 0 200 260">
+  <defs>
+    <linearGradient id="vase" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#d5c3a4"/><stop offset=".35" stop-color="#fffdf2"/><stop offset=".7" stop-color="#eee1c9"/><stop offset="1" stop-color="#cbb99b"/></linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#9dbb77"/><stop offset="1" stop-color="#4f805c"/></linearGradient>
+    <radialGradient id="petal"><stop stop-color="#fffef8"/><stop offset="1" stop-color="#e7d9bd"/></radialGradient>
+    <filter id="wc" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="5" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale=".65"/></filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+    <g id="daisy" stroke="#b49b78" stroke-width="1.5">
+      <g fill="url(#petal)"><ellipse cy="-15" rx="8" ry="15"/><ellipse cy="15" rx="8" ry="15"/><ellipse cx="-15" rx="15" ry="8"/><ellipse cx="15" rx="15" ry="8"/><ellipse transform="rotate(45)" cy="-15" rx="7" ry="14"/><ellipse transform="rotate(45)" cy="15" rx="7" ry="14"/></g>
+      <circle r="11" fill="#e8b84f"/><circle r="5" fill="#b98236"/>
+    </g>
+  </defs>
+  <ellipse cx="100" cy="239" rx="55" ry="9" fill="#6b4b31" opacity=".14" filter="url(#blur)"/>
+  <g filter="url(#wc)" stroke-linecap="round" stroke-linejoin="round">
+    <g stroke="#628563" stroke-width="4" fill="none"><path d="M100 174 Q79 111 52 65"/><path d="M100 174 V43"/><path d="M100 174 Q121 111 148 65"/></g>
+    <g fill="url(#leaf)" stroke="#527451" stroke-width="1.5"><path d="M87 132 Q55 108 51 124 Q58 143 88 141Z"/><path d="M113 132 Q145 108 149 124 Q142 143 112 141Z"/><path d="M99 108 Q73 84 69 98 Q75 114 99 119Z"/><path d="M101 108 Q127 84 131 98 Q125 114 101 119Z"/></g>
+    <use href="#daisy" transform="translate(50 55)"/>
+    <use href="#daisy" transform="translate(100 32)"/>
+    <use href="#daisy" transform="translate(150 55)"/>
+    <path d="M67 153 Q100 145 133 153 L128 173 Q143 220 122 235 Q100 246 78 235 Q57 220 72 173Z" fill="url(#vase)" stroke="#9a8063" stroke-width="3"/>
+    <path d="M68 154 Q100 163 132 154 L128 169 Q100 177 72 169Z" fill="#c6b18f" stroke="#9a8063" stroke-width="2"/>
+    <path d="M81 178 Q72 211 85 230" fill="none" stroke="#fffdf4" stroke-width="6" opacity=".65"/>
+    <path d="M75 190 Q100 198 125 190" fill="none" stroke="#d2bd9d" stroke-width="3" opacity=".65"/>
+  </g>
+</svg>

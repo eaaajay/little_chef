@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="240" height="200" viewBox="0 0 240 200">
+  <defs>
+    <linearGradient id="wood" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#e4ae68"/><stop offset=".55" stop-color="#b8783f"/><stop offset="1" stop-color="#81502f"/></linearGradient>
+    <linearGradient id="paper" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#fffef8"/><stop offset="1" stop-color="#e8ddc8"/></linearGradient>
+    <filter id="wc" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".04" numOctaves="2" seed="16" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale=".6"/></filter>
+    <filter id="blur"><feGaussianBlur stdDeviation="3"/></filter>
+  </defs>
+  <ellipse cx="120" cy="179" rx="88" ry="9" fill="#694a30" opacity=".14" filter="url(#blur)"/>
+  <g filter="url(#wc)" stroke-linecap="round" stroke-linejoin="round">
+    <!-- Three upright napkins in a symmetrical arrangement -->
+    <path d="M84 41 Q65 58 69 96 L110 96 Q103 61 84 41Z" fill="url(#paper)" stroke="#b6a58c" stroke-width="2.5"/>
+    <path d="M156 41 Q175 58 171 96 L130 96 Q137 61 156 41Z" fill="url(#paper)" stroke="#b6a58c" stroke-width="2.5"/>
+    <path d="M120 20 Q99 53 108 96 H132 Q141 53 120 20Z" fill="#fffdf5" stroke="#b6a58c" stroke-width="2.5"/>
+    <path d="M84 55 Q94 70 96 84 M156 55 Q146 70 144 84 M120 40 V78" fill="none" stroke="#e0d2bc" stroke-width="2"/>
+    <!-- Level wooden holder -->
+    <rect x="35" y="91" width="170" height="83" rx="11" fill="url(#wood)" stroke="#74482e" stroke-width="4"/>
+    <rect x="42" y="98" width="156" height="27" rx="5" fill="#8c5733" stroke="#74482e" stroke-width="3"/>
+    <rect x="46" y="126" width="148" height="39" rx="4" fill="#bd8046" stroke="#8c5934" stroke-width="2.5"/>
+    <path d="M55 139 H185 M55 153 H185" stroke="#e4b77c" stroke-width="3" opacity=".55"/>
+    <path d="M47 94 H193" stroke="#f0c88f" stroke-width="3" opacity=".55"/>
+    <circle cx="179" cy="145" r="4" fill="#e7be7c" opacity=".8" stroke="none"/>
+  </g>
+</svg>

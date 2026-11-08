@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="120" viewBox="0 0 360 120">
+  <defs>
+    <linearGradient id="inside" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#5a4c48"/><stop offset=".55" stop-color="#9b7554"/><stop offset="1" stop-color="#4a4241"/></linearGradient>
+    <linearGradient id="steel" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f0f1e9"/><stop offset=".42" stop-color="#b9c0bf"/><stop offset="1" stop-color="#717b7d"/></linearGradient>
+    <linearGradient id="panInside" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#778183"/><stop offset="1" stop-color="#4f595b"/></linearGradient>
+    <filter id="wc" x="-3%" y="-5%" width="106%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".05" numOctaves="2" seed="3" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale=".35"/></filter>
+  </defs>
+  <g filter="url(#wc)" stroke-linejoin="round">
+    <!-- Empty stainless oven cavity: no prepared food in the initial scene. -->
+    <rect width="360" height="120" fill="url(#inside)"/>
+    <path d="M12 15 H348 M12 102 H348" stroke="#c5b39c" stroke-width="3" opacity=".45"/>
+    <path d="M22 26 H338 M22 34 H338" stroke="#d5c1a5" stroke-width="1.5" opacity=".22"/>
+    <!-- Rack remains visible around the tray -->
+    <g stroke="#c3c5bd" stroke-width="2" opacity=".55"><path d="M14 88 H346"/><path d="M28 82 V99 M52 82 V99 M308 82 V99 M332 82 V99"/></g>
+    <!-- Square, shallow stainless tray, level and empty -->
+    <rect x="70" y="65" width="24" height="15" rx="5" fill="url(#steel)" stroke="#596365" stroke-width="2"/>
+    <rect x="266" y="65" width="24" height="15" rx="5" fill="url(#steel)" stroke="#596365" stroke-width="2"/>
+    <rect x="82" y="51" width="196" height="54" rx="9" fill="url(#steel)" stroke="#596365" stroke-width="3"/>
+    <rect x="93" y="60" width="174" height="34" rx="5" fill="url(#panInside)" stroke="#d3d7d1" stroke-width="2"/>
+    <path d="M98 65 H262" stroke="#e9ece6" stroke-width="2" opacity=".7"/>
+    <path d="M93 97 H267" stroke="#3e484b" stroke-width="3" opacity=".55"/>
+    <path d="M88 55 V96" stroke="#f5f5ed" stroke-width="2" opacity=".5"/>
+  </g>
+</svg>

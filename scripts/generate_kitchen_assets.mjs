@@ -1,0 +1,21 @@
+import { chromium } from '@playwright/test';
+import { execFileSync } from 'node:child_process';
+import { mkdir, readFile } from 'node:fs/promises';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const browser = await chromium.launch({ channel: 'msedge', headless: true });
+const page = await browser.newPage({ deviceScaleFactor: 2 });
+await page.setViewportSize({ width: 800, height: 500 });
+const svg = await readFile(path.join(root, 'artwork', 'kitchen', 'empty-oven.svg'), 'utf8');
+await page.setContent(`<!doctype html><style>html,body{margin:0;background:transparent}svg{display:block}</style>${svg}`);
+const out = path.join(root, 'public', 'assets', 'room');
+await mkdir(out, { recursive: true });
+const png = path.join(out, 'empty-oven.png');
+const webp = path.join(out, 'empty-oven.webp');
+await page.locator('svg').screenshot({ path: png, omitBackground: true });
+const python = process.env.PYTHON ?? 'python3';
+execFileSync(python, ['-c', 'from PIL import Image; import sys; Image.open(sys.argv[1]).save(sys.argv[2], "WEBP", quality=92, method=6)', png, webp]);
+console.log('generated empty-oven.png / empty-oven.webp');
+await browser.close();
