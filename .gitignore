@@ -4,4 +4,6 @@ dist/
 playwright-report/
 test-results/
 artifacts/
+__pycache__/
+*.py[cod]
 .DS_Store

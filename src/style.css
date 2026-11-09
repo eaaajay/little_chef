@@ -209,6 +209,107 @@ img { -webkit-user-drag: none; }
   .rotate-hint { position: fixed; display: block; left: 50%; bottom: 5vh; color: #816b51; text-align: center; font-size: 7vw; transform: translateX(-50%); }
   .rotate-hint span { font-size: 3.5vw; font-weight: 800; white-space: nowrap; }
 }
+/* Keyboard-only scene controls stay available to assistive technology. */
+.keyboard-controls {
+  position: absolute;
+  z-index: 26;
+  top: 70px;
+  left: 50%;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  pointer-events: auto;
+  transform: translateX(-50%);
+}
+.keyboard-controls:focus-within {
+  display: flex;
+  width: min(90cqw, 620px);
+  height: auto;
+  max-height: 70%;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 12px;
+  overflow: auto;
+  clip-path: none;
+  background: var(--paper);
+  border: 2px solid var(--coral);
+  border-radius: 12px;
+  box-shadow: 0 8px 30px #17324d40;
+}
+.keyboard-controls button { min-height: 44px; padding: 8px 14px; background: #f3e8d5; border-radius: 8px; font-size: 14px; }
+.keyboard-controls button:focus-visible { background: #fff; }
+
+/* Keep controls usable even when the 4:3 game is small on a phone. */
+.primary-button, .secondary-button, .danger-button { min-height: clamp(44px, 4.2cqw, 54px); font-size: clamp(13px, 1.35cqw, 17px); }
+.round-button { width: clamp(44px, 3.6cqw, 50px); height: clamp(44px, 3.6cqw, 50px); }
+.labeled-button { width: clamp(68px, 5.3cqw, 76px); }
+.brand-pill, .coin-pill { height: clamp(40px, 3.6cqw, 48px); }
+.close-button { width: 44px; height: 44px; }
+.order-ticket.compact .text-button { width: 44px; height: 44px; }
+
+@container (max-width: 700px) {
+  .top-bar { left: 8px; right: 8px; top: 8px; gap: 6px; }
+  .brand-pill { display: none; }
+  .top-actions { gap: 6px; }
+  .coin-pill { min-width: 66px; padding: 0 10px; font-size: 14px; }
+  .coin-icon { width: 22px; height: 22px; }
+  .labeled-button > span { font-size: 12px; }
+  .labeled-button small { font-size: 10px; }
+
+  .welcome-card { width: 86cqw; max-height: 94%; padding: 18px 22px; overflow: auto; }
+  .welcome-dishes { height: 66px; }
+  .welcome-dishes img { width: 66px; height: 66px; }
+  .welcome-dishes .welcome-dish-main { width: 82px; height: 82px; }
+  .welcome-card h1 { font-size: 30px; }
+  .english-title { margin: 6px 0 10px; font-size: 11px; letter-spacing: .1em; }
+  .welcome-copy { margin-bottom: 12px; font-size: 13px; }
+  .welcome-features { gap: 6px; margin-top: 12px; font-size: 11px; }
+  #start-button { width: min(70cqw, 300px); }
+
+  .order-ticket.compact { top: 62px; right: 8px; width: min(65cqw, 360px); height: 48px; }
+  .order-ticket.compact .ticket-heading { display: none; }
+  .order-ticket.compact .ticket-dish-row h2 { font-size: 13px; }
+  .order-ticket.compact .ticket-dish-row p { font-size: 11px; }
+  .order-ticket.compact .text-button { width: 44px; height: 44px; }
+
+  .task-card { left: 8px; bottom: 8px; width: min(72cqw, 390px); min-height: 64px; padding: 8px 12px; gap: 8px; }
+  .task-number { width: 36px; height: 36px; font-size: 18px; }
+  .task-copy small { font-size: 9px; }
+  .task-copy strong { font-size: 14px; line-height: 1.2; white-space: normal; }
+  .task-copy > span { font-size: 11px; }
+  .toast { bottom: 80px; max-width: 76cqw; padding: 9px 14px; border-radius: 12px; font-size: 12px; text-align: center; }
+  .action-progress { bottom: 84px; width: 56cqw; }
+  .action-progress > span { font-size: 13px; }
+
+  #order-modal, .fridge-layer { justify-content: center; padding: 0; }
+  .order-dialog, .confirm-dialog { width: 86cqw; max-height: 92%; padding: 20px; overflow: auto; }
+  .order-sentence { font-size: 20px; }
+  .order-dish-image { width: 86px; height: 86px; }
+  .order-dialog h2, .confirm-dialog h2 { font-size: 22px; }
+  .order-ingredients { flex-wrap: wrap; gap: 6px; margin: 8px 0 12px; }
+  .order-ingredients span { font-size: 12px; }
+  .dialog-muted, .confirm-dialog p { font-size: 13px; }
+  .dialog-actions { flex-wrap: wrap; gap: 8px; }
+  .dialog-ribbon { font-size: 11px; }
+
+  .fridge-dialog { width: 90cqw; max-height: 92%; padding: 14px; overflow: auto; }
+  .dialog-heading h2 { font-size: 20px; }
+  .fridge-items { gap: 8px; margin: 8px 0; }
+  .fridge-item { min-height: 112px; padding: 8px 5px; }
+  .fridge-item img { width: 52px; height: 52px; }
+  .fridge-item strong { font-size: 13px; }
+  .fridge-item small, .fridge-tip { font-size: 12px; }
+
+  .wordbook-dialog { width: 92cqw; max-height: 90%; padding: 14px; }
+  .word-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; margin-top: 8px; }
+  .word-card { min-height: 88px; padding: 6px 3px; }
+  .word-card img, .word-action { width: 44px; height: 44px; }
+  .word-card strong { font-size: 12px; }
+  .word-card small, .wordbook-tip { font-size: 11px; }
+  .wordbook-tip { margin-top: 8px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
 }

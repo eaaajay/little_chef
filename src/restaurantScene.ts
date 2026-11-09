@@ -66,6 +66,7 @@ export class RestaurantScene extends Phaser.Scene {
   private targetRing?: Phaser.GameObjects.Ellipse;
   private targetHand?: Phaser.GameObjects.Text;
   private targetHandBaseY = 0;
+  private readonly reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   constructor(private readonly ui: GameUI, private readonly audio: AudioManager, private readonly store: RestaurantStore) {
     super('restaurant');
@@ -148,6 +149,10 @@ export class RestaurantScene extends Phaser.Scene {
     TABLE_ANCHORS.forEach((point, tableIndex) => {
       const zone = this.add.zone(point.x, point.y, 240, 185).setInteractive({ useHandCursor: true });
       zone.on('pointerdown', () => { void this.serveTable(tableIndex); });
+      this.add.circle(point.x, point.y + 18, 20, 0xfffaf0, 0.96).setStrokeStyle(2, 0xe85c43, 0.8).setDepth(point.y + 96);
+      this.add.text(point.x, point.y + 18, String(tableIndex + 1), {
+        fontFamily: 'Arial, sans-serif', fontSize: '22px', fontStyle: 'bold', color: '#bd4132',
+      }).setOrigin(0.5).setDepth(point.y + 97);
     });
   }
 
@@ -155,6 +160,7 @@ export class RestaurantScene extends Phaser.Scene {
     if (!this.ready || this.started) return;
     this.started = true;
     this.ui.start();
+    this.updateHighlight();
     const delay = Math.max(0, Number(new URLSearchParams(window.location.search).get('delay') ?? 500) || 0);
     this.time.delayedCall(delay, () => this.spawnGuest());
   }
@@ -202,7 +208,8 @@ export class RestaurantScene extends Phaser.Scene {
     const text = this.add.text(0, 0, '点我点餐', { fontFamily: 'PingFang SC, sans-serif', fontSize: '18px', color: '#ffffff', fontStyle: 'bold' }).setOrigin(0.5);
     bubble.add([background, text]);
     guest.prompt = bubble;
-    this.tweens.add({ targets: bubble, y: '-=7', duration: 700, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
+    if (!this.reducedMotion) this.tweens.add({ targets: bubble, y: '-=7', duration: 700, yoyo: true, repeat: -1, ease: 'Sine.InOut' });
+    this.updateHighlight();
   }
 
   private clearGuestPrompt(guest: Guest): void {
@@ -219,6 +226,14 @@ export class RestaurantScene extends Phaser.Scene {
     if (this.orderingGuest !== guest || this.busy || this.ui.modalOpen || guest.phase !== 'ordering') return;
     this.clearGuestPrompt(guest);
     this.showOrderFor(guest);
+  }
+
+  takeOrder(): void {
+    if (this.orderingGuest) this.openOrderInteraction(this.orderingGuest);
+  }
+
+  activateStation(station: StationId): void {
+    void this.handleStation(station);
   }
 
   private orderView(guest: Guest): OrderView { return { recipe: guest.recipe, resident: guest.resident, orderNumber: guest.id }; }
@@ -348,12 +363,13 @@ export class RestaurantScene extends Phaser.Scene {
 
   private async flySpriteTo(sprite: Phaser.GameObjects.Image, destination: { x: number; y: number }, duration = 620, vessel?: VesselId): Promise<void> {
     const start = { x: sprite.x, y: sprite.y };
+    const tweenDuration = this.reducedMotion ? Math.min(duration, 120) : duration;
     await new Promise<void>((resolve) => {
       this.tweens.add({
-        targets: sprite, x: destination.x, angle: 350, duration, ease: 'Cubic.Out',
+        targets: sprite, x: destination.x, angle: this.reducedMotion ? 0 : 350, duration: tweenDuration, ease: 'Cubic.Out',
         onUpdate: (tween) => {
           const progress = tween.progress;
-          sprite.y = start.y + (destination.y - start.y) * progress - Math.sin(progress * Math.PI) * 105;
+          sprite.y = start.y + (destination.y - start.y) * progress - (this.reducedMotion ? 0 : Math.sin(progress * Math.PI) * 105);
         },
         onComplete: () => resolve(),
       });
@@ -482,7 +498,7 @@ export class RestaurantScene extends Phaser.Scene {
     if (recipe.id === 'fruit_salad') this.saladBowl?.setVisible(true);
   }
 
-  private async serveTable(tableIndex: number): Promise<void> {
+  async serveTable(tableIndex: number): Promise<void> {
     if (!this.started || this.busy || this.ui.modalOpen) return;
     const active = this.active;
     if (!active || !active.progress.dishReady) return;
@@ -530,7 +546,7 @@ export class RestaurantScene extends Phaser.Scene {
       const scaleY = guest.dish.scaleY * 0.3;
       this.tweens.add({ targets: guest.dish, scaleX, scaleY, alpha: 0.4, duration: 3200, ease: 'Sine.InOut' });
     }
-    this.tweens.add({ targets: guest.actor.image, y: -8, duration: 260, yoyo: true, repeat: 5 });
+    if (!this.reducedMotion) this.tweens.add({ targets: guest.actor.image, y: -8, duration: 260, yoyo: true, repeat: 5 });
     await this.wait(2800 + Math.random() * 1000);
     if (guest.phase !== 'eating') return;
     const reaction = Phaser.Math.RND.pick([...REACTIONS]);
@@ -559,6 +575,7 @@ export class RestaurantScene extends Phaser.Scene {
   }
 
   private animateCoins(x: number, y: number): void {
+    if (this.reducedMotion) return;
     for (let index = 0; index < 6; index += 1) {
       const coin = this.add.text(x, y, '●', { fontFamily: 'Arial', fontSize: '32px', color: '#f6c751' }).setOrigin(0.5).setDepth(2000);
       this.tweens.add({ targets: coin, x: 120 + index * 5, y: 48, angle: 360, duration: 700 + index * 80, delay: index * 55, ease: 'Cubic.In', onComplete: () => coin.destroy() });
@@ -589,7 +606,7 @@ export class RestaurantScene extends Phaser.Scene {
           targets: actor.view, x: point.x, y: point.y, duration: Math.max(100, distance / speed * 1000), ease: 'Linear',
           onUpdate: () => {
             actor.view.setDepth(actor.view.y);
-            actor.image.y = -Math.abs(Math.sin(this.time.now / 75)) * 5;
+            actor.image.y = this.reducedMotion ? 0 : -Math.abs(Math.sin(this.time.now / 75)) * 5;
           },
           onComplete: () => { actor.image.y = 0; resolve(); },
         });
@@ -602,6 +619,12 @@ export class RestaurantScene extends Phaser.Scene {
   private updateHighlight(): void {
     if (!this.targetRing || !this.targetHand) return;
     const task = this.active?.progress.task();
+    this.ui.updateGameControls({
+      canTakeOrder: Boolean(this.orderingGuest) && !this.busy && !this.ui.modalOpen,
+      station: this.busy ? undefined : task?.station,
+      table: !this.busy && task?.table ? this.active?.guest.tableIndex : undefined,
+      busy: this.busy,
+    });
     if (!task || this.busy) {
       this.targetRing.setVisible(false);
       this.targetHand.setVisible(false);
@@ -615,7 +638,7 @@ export class RestaurantScene extends Phaser.Scene {
       const area = STATION_HIT_AREAS[task.station];
       x = area.x + area.width / 2; y = area.y + area.height / 2; width = Math.min(area.width, 220); height = Math.min(area.height, 150);
     } else return;
-    this.targetRing.setPosition(x, y).setDisplaySize(width, height).setVisible(true);
+    this.targetRing.setPosition(x, y).setDisplaySize(width, height).setVisible(true).setAlpha(this.reducedMotion ? 0.8 : 1);
     this.targetHandBaseY = y - height * 0.55;
     this.targetHand.setPosition(x + width * 0.25, this.targetHandBaseY).setVisible(true);
   }
@@ -628,7 +651,7 @@ export class RestaurantScene extends Phaser.Scene {
     if (this.held && this.chef) {
       this.held.setPosition(this.chef.view.x + 55, this.chef.view.y - 95).setDepth(this.chef.view.depth + 2);
     }
-    if (this.targetRing?.visible) this.targetRing.setAlpha(0.65 + Math.sin(this.time.now / 250) * 0.25);
-    if (this.targetHand?.visible) this.targetHand.y = this.targetHandBaseY + Math.sin(this.time.now / 240) * 10;
+    if (!this.reducedMotion && this.targetRing?.visible) this.targetRing.setAlpha(0.65 + Math.sin(this.time.now / 250) * 0.25);
+    if (!this.reducedMotion && this.targetHand?.visible) this.targetHand.y = this.targetHandBaseY + Math.sin(this.time.now / 240) * 10;
   }
 }

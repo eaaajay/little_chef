@@ -15,7 +15,10 @@ test('complete a pizza order, collect words and persist the wallet', async ({ pa
   await page.getByTestId('start-game').click();
   await expect(page.getByTestId('order-modal')).toBeHidden();
   await expect(page.getByTestId('current-task')).toContainText('点击柜台前的客人');
-  await page.mouse.click(480, 500);
+  const guestControl = page.getByRole('button', { name: '点击客人点餐', exact: true });
+  await expect(guestControl).toBeEnabled();
+  await guestControl.focus();
+  await page.keyboard.press('Enter');
   await expect(page.getByTestId('order-modal')).toBeVisible();
   await expect(page.locator('#order-sentence')).toHaveText('“I want pizza, please.”');
   await page.getByTestId('confirm-order').click();
@@ -42,10 +45,12 @@ test('complete a pizza order, collect words and persist the wallet', async ({ pa
   await expect(page.locator('#coin-count')).toHaveText('130', { timeout: 35000 });
   await expect(page.locator('#word-count')).toHaveText('6/12');
   await page.screenshot({ path: 'artifacts/04-order-complete.png' });
-  // The next guest also waits at the counter until explicitly tapped.
+  // The next guest also waits at the counter until explicitly activated.
   await expect(page.getByTestId('current-task')).toContainText('点击柜台前的客人', { timeout: 20000 });
   await expect(page.getByTestId('order-modal')).toBeHidden();
-  await page.mouse.click(480, 500);
+  await expect(guestControl).toBeEnabled();
+  await guestControl.focus();
+  await page.keyboard.press('Enter');
   await expect(page.getByTestId('order-modal')).toBeVisible();
   await page.getByTestId('confirm-order').click();
   await page.locator('#wordbook-button').click();

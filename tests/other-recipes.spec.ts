@@ -10,7 +10,10 @@ async function completeRecipe(page: Page, recipe: 'noodles' | 'fruit'): Promise<
   await page.getByTestId('start-game').click();
   await expect(page.getByTestId('order-modal')).toBeHidden();
   await expect(page.getByTestId('current-task')).toContainText('点击柜台前的客人');
-  await page.mouse.click(480, 500);
+  const guestControl = page.getByRole('button', { name: '点击客人点餐', exact: true });
+  await expect(guestControl).toBeEnabled();
+  await guestControl.focus();
+  await page.keyboard.press('Enter');
   await expect(page.getByTestId('order-modal')).toBeVisible();
   await page.getByTestId('confirm-order').click();
   await page.mouse.click(220, 215);

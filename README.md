@@ -12,7 +12,8 @@
 - **英语启蒙设计**：英语点餐与用餐评价、操作提示，以及可重复播放的 12 个单词收集册。
 - **生动的视听反馈**：人物与食材动画、火焰和气泡、金币飞行动画、背景音乐与合成提示音。
 - **本地进度保存**：金币、已学单词和声音设置保存在浏览器 `localStorage` 中，无需登录。
-- **横屏自适应**：采用 4:3 等比缩放，适配 iPad 横屏，也可在电脑和手机浏览器中运行。
+- **横屏自适应**：采用 4:3 等比缩放，适配 iPad 与手机横屏，小屏按钮保持至少 44px 触控尺寸。
+- **可访问操作**：弹窗支持焦点管理，冰箱、单词本和重置弹窗可用 Escape 关闭；主要游戏步骤提供键盘按钮，并响应减少动态效果设置。
 - **纯前端部署**：构建产物为静态文件，可部署到常见静态网站托管服务。
 
 ## 菜谱
@@ -57,6 +58,8 @@ npm run dev -- --port 4173
 6. 客人用餐、评价并付款后，金币会自动计入顶部钱包。
 7. 点击顶部 **「ABC」** 查看单词本，点击已收集的单词卡片可再次播放发音。
 
+键盘用户可以按 Tab 找到当前可用的餐厅操作按钮；弹窗内使用 Tab 切换控件，冰箱、单词本和重置弹窗可按 Escape 关闭。
+
 新存档包含 100 金币。重新开始会清空当前订单、金币和单词本，但保留声音设置。
 
 ### 调试参数
@@ -83,7 +86,7 @@ http://localhost:5173/?recipe=pizza&delay=0
 | 语音与音效 | Web Speech API、Web Audio API、HTML Audio |
 | 本地存档 | Browser `localStorage` |
 | 单元测试 | Vitest |
-| 端到端测试 | Playwright + Microsoft Edge |
+| 端到端测试 | Playwright + Edge、Chromium、WebKit |
 
 Phaser 负责游戏世界、人物和动画；订单规则、寻路与钱包保持为独立 TypeScript 模块，HUD、弹窗和单词本使用 HTML/CSS 实现。
 
@@ -96,19 +99,30 @@ npm test
 # TypeScript 类型检查并生成生产构建
 npm run build
 
-# 运行真实浏览器端到端测试
+# 首次运行跨浏览器测试前安装 Chromium 和 WebKit
+npx playwright install chromium webkit
+
+# 本机运行 Edge、Chromium、WebKit 全部端到端测试
 npm run test:e2e
+
+# 也可以单独运行一个浏览器
+npm run test:e2e:edge
+npm run test:e2e:chromium
+npm run test:e2e:webkit
 
 # 本地预览生产构建
 npm run preview
 ```
 
-端到端测试使用本机安装的 **Microsoft Edge**，并自动启动 `4173` 端口的开发服务器。测试覆盖三道菜的完整订单、错误食材与错误餐桌、连续来客、钱包持久化、声音开关和 iPad 横屏布局；截图输出到已被 Git 忽略的 `artifacts/` 目录。
+端到端测试自动启动 `4173` 端口的开发服务器。本机测试使用 Microsoft Edge、Chromium 和 WebKit；CI 使用 Chromium 和 WebKit。测试覆盖三道菜完整订单、错误操作、钱包持久化、音频降级、后台暂停恢复、键盘与焦点管理，以及手机/iPad 横屏触控布局；截图输出到已被 Git 忽略的 `artifacts/` 目录。
+
+GitHub Actions 配置位于 `.github/workflows/ci.yml`，每次推送到 `main` 或创建 Pull Request 时都会执行单元测试、生产构建和跨浏览器验收。
 
 ## 项目结构
 
 ```text
 little_chef/
+├── .github/workflows/ci.yml           # 单元测试、构建与跨浏览器 CI
 ├── index.html                         # 页面入口、HUD 与弹窗
 ├── public/
 │   ├── assets/                        # 图片、音频等独立运行素材
@@ -142,7 +156,7 @@ little_chef/
 仅在需要重新导入原始素材时运行：
 
 ```bash
-# 需要 Python 3 和 Pillow
+# 需要 Python 3、Pillow 和 FFmpeg
 KIDSBOX_SOURCE=/path/to/kidsbox python3 scripts/prepare_assets.py
 ```
 

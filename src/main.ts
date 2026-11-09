@@ -11,11 +11,16 @@ const audio = new AudioManager(store.snapshot().soundOn);
 let restaurant: RestaurantScene;
 
 const ui = new GameUI(store, audio, {
-  start: () => { audio.unlock(); restaurant.startService(); },
+  start: () => {
+    try { audio.unlock(); } finally { restaurant.startService(); }
+  },
+  takeOrder: () => restaurant.takeOrder(),
   confirmOrder: () => restaurant.confirmOrder(),
   replayOrder: () => restaurant.replayOrder(),
   closeFridge: () => restaurant.closeFridge(),
   selectIngredient: (id) => restaurant.selectIngredient(id),
+  activateStation: (station) => restaurant.activateStation(station),
+  serveTable: (tableIndex) => { void restaurant.serveTable(tableIndex); },
   setSound: (enabled) => { audio.setEnabled(enabled); store.setSound(enabled); ui.setSound(enabled); },
   reset: () => { store.reset(); window.location.reload(); },
 });
@@ -35,4 +40,12 @@ const config: Phaser.Types.Core.GameConfig = {
 };
 
 new Phaser.Game(config);
-document.addEventListener('visibilitychange', () => audio.pauseForVisibility(document.hidden));
+document.addEventListener('visibilitychange', () => {
+  const hidden = document.hidden;
+  audio.pauseForVisibility(hidden);
+  if (hidden) {
+    if (restaurant.scene.isActive()) restaurant.scene.pause();
+  } else if (restaurant.scene.isPaused()) {
+    restaurant.scene.resume();
+  }
+});

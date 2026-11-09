@@ -4,9 +4,17 @@ test('uses system TTS and calm music without requesting legacy voice assets', as
   await page.addInitScript(() => {
     const spoken: { text: string; rate: number; lang: string }[] = [];
     (window as unknown as { __spoken: typeof spoken }).__spoken = spoken;
-    window.speechSynthesis.speak = (utterance) => {
-      spoken.push({ text: utterance.text, rate: utterance.rate, lang: utterance.lang });
-    };
+    Object.defineProperty(window, 'speechSynthesis', {
+      configurable: true,
+      value: {
+        speak: (utterance: SpeechSynthesisUtterance) => {
+          spoken.push({ text: utterance.text, rate: utterance.rate, lang: utterance.lang });
+        },
+        cancel: () => undefined,
+        resume: () => undefined,
+        getVoices: () => [],
+      },
+    });
     const NativeAudio = window.Audio;
     const media: HTMLAudioElement[] = [];
     (window as unknown as { __media: typeof media }).__media = media;

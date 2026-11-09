@@ -2,7 +2,7 @@
 <html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="theme-color" content="#f7eddc" />
     <meta name="description" content="小厨师餐厅：听英语点餐、取食材、做菜、上菜，收集 12 个英语单词。" />
     <link rel="icon" type="image/webp" href="/assets/ui/restaurant-icon.webp" />
@@ -51,6 +51,18 @@
           </div>
         </header>
 
+        <nav id="keyboard-controls" class="keyboard-controls" aria-label="餐厅键盘操作">
+          <button type="button" data-control="guest" disabled>点击客人点餐</button>
+          <button type="button" data-control="fridge" disabled>打开冰箱</button>
+          <button type="button" data-control="cuttingBoard" disabled>使用刀架</button>
+          <button type="button" data-control="stove" disabled>使用灶台</button>
+          <button type="button" data-control="oven" disabled>使用烤箱</button>
+          <button type="button" data-table="0" disabled>1 号桌上菜</button>
+          <button type="button" data-table="1" disabled>2 号桌上菜</button>
+          <button type="button" data-table="2" disabled>3 号桌上菜</button>
+          <button type="button" data-table="3" disabled>4 号桌上菜</button>
+        </nav>
+
         <aside id="order-ticket" class="order-ticket paper-card is-hidden" aria-label="当前订单">
           <div class="ticket-pin"></div>
           <div class="ticket-heading"><span>ORDER</span><span id="order-number">#001</span></div>
@@ -72,7 +84,7 @@
         <div id="action-progress" class="action-progress is-hidden"><span id="action-label">Chop, chop!</span><div><i id="action-progress-bar"></i></div></div>
       </div>
 
-      <section id="order-modal" class="modal-layer is-hidden" data-testid="order-modal" aria-label="客人点餐">
+      <section id="order-modal" class="modal-layer is-hidden" data-testid="order-modal" role="dialog" aria-modal="true" aria-label="客人点餐">
         <div class="order-dialog paper-card">
           <div class="dialog-ribbon">NEW ORDER · 新订单</div>
           <div id="order-customer" class="order-customer"></div>
@@ -88,7 +100,7 @@
         </div>
       </section>
 
-      <section id="fridge-modal" class="modal-layer fridge-layer is-hidden" data-testid="fridge-modal" aria-label="冰箱食材">
+      <section id="fridge-modal" class="modal-layer fridge-layer is-hidden" data-testid="fridge-modal" role="dialog" aria-modal="true" aria-label="冰箱食材">
         <div class="fridge-dialog paper-card">
           <div class="dialog-heading"><div><span class="eyebrow">FRESH INGREDIENTS</span><h2>打开冰箱，取食材</h2></div><button id="fridge-close" class="close-button" aria-label="关上冰箱">×</button></div>
           <p class="dialog-muted">按订单顺序点选，也可以把食材拖到房间里</p>
@@ -97,7 +109,7 @@
         </div>
       </section>
 
-      <section id="wordbook-modal" class="modal-layer is-hidden" data-testid="wordbook-modal" aria-label="英语单词收集册">
+      <section id="wordbook-modal" class="modal-layer is-hidden" data-testid="wordbook-modal" role="dialog" aria-modal="true" aria-label="英语单词收集册">
         <div class="wordbook-dialog paper-card">
           <div class="dialog-heading"><div><span class="eyebrow">MY LITTLE WORD BOOK</span><h2>我的英语单词本</h2></div><button id="wordbook-close" class="close-button" aria-label="关闭单词本">×</button></div>
           <p id="wordbook-summary" class="dialog-muted"></p>
@@ -106,7 +118,7 @@
         </div>
       </section>
 
-      <section id="reset-modal" class="modal-layer is-hidden" aria-label="确认重新开始">
+      <section id="reset-modal" class="modal-layer is-hidden" role="dialog" aria-modal="true" aria-label="确认重新开始">
         <div class="confirm-dialog paper-card">
           <div class="confirm-icon">↻</div><h2>重新开一家餐厅？</h2>
           <p>金币会恢复为 100，单词本和当前订单会清空。这个操作不能撤销。</p>

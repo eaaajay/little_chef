@@ -21,7 +21,6 @@ RESIDENTS = ["aya", "eli", "grandpa", "leo", "lina", "mei", "mira", "noah", "ros
 INGREDIENTS = ["tomato", "egg", "noodles", "bread", "cheese", "apple", "banana", "grapes"]
 DISHES = ["tomato_egg_noodles_food", "pizza_food", "fruit_salad_food"]
 PREPARED = ["tomato_chunks", "tomato_slices", "cheese_shreds"]
-REACTIONS = ["delicious", "happy_tummy", "best_meal", "thank_you", "every_bite", "super_yummy", "again", "more_please"]
 
 
 def ensure_parent(path: Path) -> None:
@@ -110,23 +109,9 @@ def main() -> None:
         copy(SOURCE / "assets" / "branding" / "town_people" / f"{resident}.webp", OUT / "people" / f"{resident}.webp")
     webp(SOURCE / "assets" / "branding" / "restaurant_preview_icon.png", OUT / "ui" / "restaurant-icon.webp", 512)
 
-    generic_audio = INGREDIENTS + ["wrong", "guided_chop", "guided_cook", "guided_bake", "guided_serve", "guided_good", "order", "order_pizza", "order_fruit_salad"]
-    for name in generic_audio:
-        copy(SOURCE / "assets" / "cooking" / "audio" / f"{name}.mp3", OUT / "audio" / f"{name}.mp3")
-    for effect in ["guest_enter", "serve", "payment", "food_pick", "coin"]:
-        copy(SOURCE / "assets" / "sounds" / f"{effect}.wav", OUT / "audio" / f"{effect}.wav")
-    copy(SOURCE / "assets" / "restaurant_v2" / "audio" / "kitchen_loop.mp3", OUT / "audio" / "kitchen_loop.mp3")
-    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(OUT / "audio" / "kitchen_loop.mp3"), "-filter:a", "atempo=0.65", "-c:a", "libmp3lame", "-q:a", "4", str(OUT / "audio" / "kitchen_loop_slow.mp3")], check=True)
-    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(OUT / "audio" / "kitchen_loop.mp3"), "-filter:a", "atempo=0.5", "-c:a", "libmp3lame", "-q:a", "4", str(OUT / "audio" / "kitchen_loop_calm.mp3")], check=True)
-
-    for resident in RESIDENTS:
-        for name in ["order_pizza", "order_tomato_egg_noodles"]:
-            copy(SOURCE / "assets" / "cooking" / "audio" / "people" / resident / f"{name}.mp3", OUT / "audio" / "people" / resident / f"{name}.mp3")
-        for reaction in REACTIONS:
-            copy(SOURCE / "assets" / "sounds" / "reactions" / "people" / resident / f"{reaction}.mp3", OUT / "audio" / "reactions" / "people" / resident / f"{reaction}.mp3")
-    for gender in ["female", "male"]:
-        for reaction in REACTIONS:
-            copy(SOURCE / "assets" / "sounds" / "reactions" / gender / f"{reaction}.mp3", OUT / "audio" / "reactions" / gender / f"{reaction}.mp3")
+    # Speech and UI effects use Web Speech/Web Audio at runtime; only music is shipped.
+    ensure_parent(OUT / "audio" / "kitchen_loop_calm.mp3")
+    subprocess.run(["ffmpeg", "-hide_banner", "-loglevel", "error", "-y", "-i", str(SOURCE / "assets" / "restaurant_v2" / "audio" / "kitchen_loop.mp3"), "-filter:a", "atempo=0.5", "-c:a", "libmp3lame", "-q:a", "4", str(OUT / "audio" / "kitchen_loop_calm.mp3")], check=True)
     print(f"Prepared standalone restaurant assets in {OUT}")
 
 

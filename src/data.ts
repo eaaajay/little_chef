@@ -138,19 +138,19 @@ export const REACTIONS = [
   { id: 'more_please', text: 'More please! It is so good!' },
 ] as const;
 
-export const WORD_META: Record<WordId, { english: string; chinese: string; audio: string }> = {
-  apple: { english: 'apple', chinese: '苹果', audio: '/assets/audio/apple.mp3' },
-  bake: { english: 'bake', chinese: '烘烤', audio: '/assets/audio/guided_bake.mp3' },
-  banana: { english: 'banana', chinese: '香蕉', audio: '/assets/audio/banana.mp3' },
-  boil: { english: 'boil', chinese: '水煮', audio: '/assets/audio/guided_cook.mp3' },
-  bread: { english: 'bread', chinese: '面包', audio: '/assets/audio/bread.mp3' },
-  cheese: { english: 'cheese', chinese: '芝士', audio: '/assets/audio/cheese.mp3' },
-  chop: { english: 'chop', chinese: '切切', audio: '/assets/audio/guided_chop.mp3' },
-  egg: { english: 'egg', chinese: '鸡蛋', audio: '/assets/audio/egg.mp3' },
-  grapes: { english: 'grapes', chinese: '葡萄', audio: '/assets/audio/grapes.mp3' },
-  noodles: { english: 'noodles', chinese: '面条', audio: '/assets/audio/noodles.mp3' },
-  serve: { english: 'serve', chinese: '上菜', audio: '/assets/audio/guided_serve.mp3' },
-  tomato: { english: 'tomato', chinese: '番茄', audio: '/assets/audio/tomato.mp3' },
+export const WORD_META: Record<WordId, { english: string; chinese: string }> = {
+  apple: { english: 'apple', chinese: '苹果' },
+  bake: { english: 'bake', chinese: '烘烤' },
+  banana: { english: 'banana', chinese: '香蕉' },
+  boil: { english: 'boil', chinese: '水煮' },
+  bread: { english: 'bread', chinese: '面包' },
+  cheese: { english: 'cheese', chinese: '芝士' },
+  chop: { english: 'chop', chinese: '切切' },
+  egg: { english: 'egg', chinese: '鸡蛋' },
+  grapes: { english: 'grapes', chinese: '葡萄' },
+  noodles: { english: 'noodles', chinese: '面条' },
+  serve: { english: 'serve', chinese: '上菜' },
+  tomato: { english: 'tomato', chinese: '番茄' },
 };
 
 export const ALL_WORDS = Object.keys(WORD_META) as WordId[];
@@ -193,8 +193,4 @@ export function recipeById(id: RecipeId): Recipe {
   const recipe = RECIPES.find((item) => item.id === id);
   if (!recipe) throw new Error(`Unknown recipe: ${id}`);
   return recipe;
-}
-
-export function orderAudioName(recipe: Recipe): string {
-  return recipe.id === 'tomato_egg_noodles' ? 'order_tomato_egg_noodles' : `order_${recipe.id}`;
 }
